@@ -36,10 +36,11 @@ router.post('/', async(req, res) => {
 
   try{
     const createdReport = await Report.create(req.body);
-    console.log(`Created Report: ${createdReport}`);
+    // console.log(`Created Report: ${createdReport}`);
     res.json({
       status:200,
-      data: createdReport
+      data: createdReport,
+      reportCode: report._id
     })
   }catch(err){
     res.send(err)

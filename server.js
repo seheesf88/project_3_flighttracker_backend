@@ -28,10 +28,14 @@ app.use(cors(corsOptions));
 //--------------------------
 
 const reportController = require('./controllers/reportController');
+const authController = require('./controllers/authController');
+const userController = require('./controllers/userController');
 
 app.use('/api/v1/reports', reportController);
+app.use('/api/v1/auth', authController);
+app.use('/api/v1/users', userController);
 
 
-app.listen(process.env.PORT || 9000, () => {
+app.listen(9000, () => {
   console.log('I am working')
 })
