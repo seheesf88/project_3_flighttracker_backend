@@ -44,20 +44,21 @@ router.post('/login', async(req, res) => {
     // const foundUser = await User.findOne({username: req.body.username})
     const foundUser = await User.findOne({username: req.body.username})
     // const foundUser = await User.findOne({email: req.body.email})
-    console.log("1", foundUser);
+
     if(foundUser){
-      console.log("pass?");
+
       const passwordMatches = bcrypt.compareSync(req.body.password, foundUser.password);
-      console.log("222", (bcrypt.compareSync(req.body.password, foundUser.password)));
+      console.log("passwordMatches", (bcrypt.compareSync(req.body.password, foundUser.password)));
       // if(bcrypt.compareSync(req.body.password, foundUser.password)){
       if(passwordMatches){
         req.session.message = '';
-        req.session.username = foundUser.username;
         req.session.logged = true;
+        req.session.username = foundUser.username;
+        console.log('foundUser.username', foundUser.username);
         req.session.userId = foundUser._id
         res.json({
           status:200,
-          data: 'login successful1',
+          data: 'login successful',
           userId: foundUser._id,
           username: foundUser.username
         })
@@ -66,14 +67,14 @@ router.post('/login', async(req, res) => {
         req.session.message = 'username or password is not correct'
         res.json({
           status: 401,
-          data: 'login unsuccessful2'
+          data: 'login unsuccessful1'
         })
       }
     }else{
       req.session.message = 'username or password is incorrect';
       res.json({
         status: 401,
-        data: 'login unsuccessful3',
+        data: 'login unsuccessful2',
       })
     }
   }catch(err){
