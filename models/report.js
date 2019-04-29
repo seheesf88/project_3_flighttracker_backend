@@ -8,6 +8,8 @@ const reportSchema = new mongoose.Schema({
   estArrival: {type: String},
   status: {type: String},
   issue: {type: String},
+  authorId: {type: String},
+  authorname: { type: String}
 });
 
 module.exports = mongoose.model('Report', reportSchema)

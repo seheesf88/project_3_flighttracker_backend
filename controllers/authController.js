@@ -54,8 +54,9 @@ router.post('/login', async(req, res) => {
         req.session.message = '';
         req.session.logged = true;
         req.session.username = foundUser.username;
-        console.log('foundUser.username', foundUser.username);
+        // console.log('foundUser.username', foundUser.username);
         req.session.userId = foundUser._id
+        console.log('req.session in login', req.session);
         res.json({
           status:200,
           data: 'login successful',

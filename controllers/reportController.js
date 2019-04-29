@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const Report  = require('../models/report');
+const User = require('../models/user');
 
 
 //report list
@@ -18,9 +19,10 @@ router.get('/', async(req, res) => {
 
 //report show
 router.get('/:id', async(req, res) => {
-  console.log(req.body)
+  console.log("??",req.body)
   try{
     const foundReport = await Report.findById(req.params.id)
+    console.log('why no author...', foundReport );
     res.json({
       status: 200,
       data: foundReport
@@ -31,21 +33,33 @@ router.get('/:id', async(req, res) => {
 });
 
 //report create
-router.post('/', async(req, res) => {
+router.post('/', async(req, response) => {
   // console.log(`Report Create: ${req.body}`)
+  // console.log(req.body);
 
   try{
     const createdReport = await Report.create(req.body);
+    // console.log('session id', req.session.userId);
+    createdReport.authorId = req.session.userId;
+    createdReport.authorname = req.session.username;
     // console.log(`Created Report: ${createdReport}`);
-    res.json({
-      status:200,
-      data: createdReport,
-      reportCode: report._id
+    // console.log('createdReport=>', typeof(createdReport));
+    console.log('createdReport', createdReport);
+    createdReport.save((err, savedReport) => {
+      response.json({
+        status: 200,
+        data: savedReport,
+      })
     })
+    // console.log('here?');
   }catch(err){
-    res.send(err)
+    console.log('error?????');
+    response.send(err)
   }
 });
+
+
+
 
 
 //report edit

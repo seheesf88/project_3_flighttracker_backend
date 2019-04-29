@@ -49,20 +49,31 @@ router.get('/myreports/:id', async(req, res) => {
   }
 })
 
-router.post('/myreports', async(req, res) => {
-  try{
-    const createdReport = await Report.create(req.body);
-     createdReport.userId = req.session.userId;
-     createdReport.username = req.session.username;
-     createdReport.save((err, savedReport) => {
-       res.json({
-         myreports: savedReport
-       })
-     })
-  }catch(err){
-    res.send(err)
-  }
-})
+// router.post('/myreports', async(req, res) => {
+//   try{
+//     const test = req.body
+//     test.userId = req.session.userId
+//     console.log('req.body? =>', test);
+//     const createdReport = await Report.create(test);
+//     console.log('0.typeof? => ', typeof(createdReport));
+//     console.log('1.createdReport =', createdReport);
+//      // createdReport.userId = req.session.userId;
+//      createdReport['userId'] = req.session.userId
+//      console.log('2.userId?', createdReport.userId);
+//      console.log('3.createdReport =', createdReport);
+//      createdReport.username = req.session.username;
+//      console.log('kkk', createdReport);
+//      createdReport.save((err, savedReport) => {
+//        console.log("????", savedReport);
+//        res.json({
+//          myreports: savedReport
+//        })
+//      })
+//
+//   }catch(err){
+//     res.send(err)
+//   }
+// })
 
 
 module.exports = router
