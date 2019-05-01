@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000', 'https://localhost:3000', ],
   credentials: true,
   optionsSuccessStatus:200
 }
@@ -36,6 +36,6 @@ app.use('/api/v1/auth', authController);
 app.use('/api/v1/users', userController);
 
 
-app.listen(9000, () => {
+app.listen(process.env.PORT || 9000, () => {
   console.log('I am working')
 })
