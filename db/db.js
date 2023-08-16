@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
 const connectionString = 'mongodb://localhost/report'
 
-mongoose.connect(process.env.MONGODB_URI || connectionString, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false
-});
+mongoose.connect(process.env.MONGODB_URI || connectionString);
 
 mongoose.connection.on('connected', () => {
   console.log(`mongoose connected to ${connectionString}`)
